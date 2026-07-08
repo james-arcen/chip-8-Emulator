@@ -302,7 +302,24 @@ int fde_loop(Chip8 *chip8){
                     break;
                 /*Binary Coded Decimal*/
                 case 0X33:
-                    chip8->memory[chip8->I] = chip8->V[x]/100;
+                    chip8->memory[chip8->I] = chip8->V[x]/100; //hundreds
+                    chip8->memory[chip8->I+1] = (chip8->V[x]/10)%10;//tens
+                    chip8->memory[chip8->I+2] = chip8->V[x]%10;//ones
+                    chip8->pc+=2;
+                    break;
+                /*Storing and Loading Memory*/
+                case 0X55: // Store
+                    for(int i = 0; i <= x; i++){
+                        chip8->memory[chip8->I +i] = chip8->V[i];
+                    }
+                    chip8->pc+=2;
+                    break;
+                case 0X65: // Load
+                    for(int i = 0; i<= x; i++){
+                        chip8->V[i] = chip8->memory[chip8-> I +i];
+                    }
+                    chip8->pc+=2;
+                    break;
             break;         
             }
         break;
