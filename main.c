@@ -324,6 +324,30 @@ int fde_loop(Chip8 *chip8){
             }
         break;
         
+        //Graphical Instructions
+        case 0xD:
+            chip8->V[16] = 0;
+            uint8_t xCoord = chip8->V[x]%64; //Anything larger should wrap around
+            uint8_t yCoord = chip8->V[y]%32;
+
+            //Row Loop
+            for(int row = 0; row <= n-1; row++){
+                chip8->I + row;
+                yCoord += row;
+                if(yCoord >=32){
+                    break;
+                }
+                //Column Loop
+                for(int col =0; col < 7; col++){
+                    xCoord += col;
+                    if(xCoord >= 64){
+                        break;
+                    }
+                }
+            }
+            
+            
+        break;
         //Register Instructions
         default:
             fprintf(stderr, "Unknown opcode: 0x%X\n", opcode);
@@ -333,3 +357,7 @@ int fde_loop(Chip8 *chip8){
 }
 
 
+/*
+Notes:
+Graphics loop not yet finished still implementing the prerquistes of the graphics loop
+*/
