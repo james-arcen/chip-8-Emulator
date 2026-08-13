@@ -326,7 +326,7 @@ int fde_loop(Chip8 *chip8){
         
         //Graphical Instructions
         case 0xD:
-            chip8->V[16] = 0;
+            chip8->V[0xF] = 0;
             uint8_t xCoord = chip8->V[x]%64; //Anything larger should wrap around
             uint8_t yCoord = chip8->V[y]%32;
 
