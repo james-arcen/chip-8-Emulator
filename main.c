@@ -332,15 +332,15 @@ int fde_loop(Chip8 *chip8){
 
             //Row Loop
             for(int row = 0; row <= n-1; row++){
-                chip8->I + row;
-                yCoord += row;
-                if(yCoord >=32){
+                uint8_t spriteByte = chip8->memory[chip8->I + row];
+                uint8_t currentY = yCoord + row;
+                if(currentY >=32){
                     break;
                 }
                 //Column Loop
-                for(int col =0; col < 7; col++){
-                    xCoord += col;
-                    if(xCoord >= 64){
+                for(int col =0; col <= 7; col++){ //
+                    uint8_t currentX = xCoord + col; 
+                    if(currentX >= 64){
                         break;
                     }
                 }
