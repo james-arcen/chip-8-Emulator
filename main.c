@@ -365,3 +365,7 @@ int fde_loop(Chip8 *chip8){
     return 0;
 }
 
+/*
+DOs 
+1. make a thorough documentation throught the entire emulation logic before proceeding to make the sdl
+*/
