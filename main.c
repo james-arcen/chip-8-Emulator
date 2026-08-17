@@ -343,8 +343,17 @@ int fde_loop(Chip8 *chip8){
                     if(currentX >= 64){
                         break;
                     }
+                    uint8_t currentCol = spriteByte >> (7-col) & 1;
+                    if(currentCol == 1){
+                        if(chip8 -> display [(currentY*64)+currentX] == 1){
+                            chip8 -> V[0xF] = 1;
+                        }
+                        chip8 -> display [(currentY*64)+currentX] ^= 1;
+                    }
+                    
                 }
             }
+            chip8 -> pc +=2;
             
             
         break;
@@ -356,8 +365,3 @@ int fde_loop(Chip8 *chip8){
     return 0;
 }
 
-
-/*
-Notes:
-Graphics loop not yet finished still implementing the prerquistes of the graphics loop
-*/
