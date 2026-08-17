@@ -251,12 +251,12 @@ int fde_loop(Chip8 *chip8){
             switch(nn){
                 case 0x9E:
                     if(chip8->keypad[chip8->V[x]] == 1){ // check if pressed
-                    chip8->pc +=2;
+                        chip8->pc +=2;
                     }
                     break;
                 case 0xA1:
                     if(chip8->keypad[chip8->V[x]] == 0){// check if not pressed
-                    chip8->pc +=2;
+                        chip8->pc +=2;
                     }
                     break;
                 default:
@@ -270,27 +270,27 @@ int fde_loop(Chip8 *chip8){
             switch(nn){
                 case 0x07:
                     chip8->V[x] = chip8->delay_timer;
-                    chip8->pc +=2;
+                    
                     break;
                 case 0X15:
                     chip8->delay_timer = chip8->V[x];
-                    chip8->pc +=2;
+                    
                     break;
                 case 0x18:
                     chip8->sound_timer= chip8->V[x];
-                    chip8->pc +=2;
+                    
                     break;
                 /*add to index*/
                 case 0X1E:
                     chip8->I += chip8->V[x];
-                    chip8->pc +=2;
+                    
                     break;
                 /*get key*/ 
                 case 0X0A:
                     for(int i = 0; i<16; i++){
                         if(chip8->keypad[i] == 1){
                             chip8->V[x] = i;
-                            chip8->pc +=2;
+                            
                             break;
                         }   
                     }
@@ -298,34 +298,34 @@ int fde_loop(Chip8 *chip8){
                 /*font pointer*/
                 case 0X29:
                     chip8->I = (chip8->V[x] *5) + 0X50;
-                    chip8->pc += 2;
+                    
                     break;
                 /*Binary Coded Decimal*/
                 case 0X33:
                     chip8->memory[chip8->I] = chip8->V[x]/100; //hundreds
                     chip8->memory[chip8->I+1] = (chip8->V[x]/10)%10;//tens
                     chip8->memory[chip8->I+2] = chip8->V[x]%10;//ones
-                    chip8->pc+=2;
+                    
                     break;
                 /*Storing and Loading Memory*/
                 case 0X55: // Store
                     for(int i = 0; i <= x; i++){
                         chip8->memory[chip8->I +i] = chip8->V[i];
                     }
-                    chip8->pc+=2;
+                    
                     break;
                 case 0X65: // Load
                     for(int i = 0; i<= x; i++){
                         chip8->V[i] = chip8->memory[chip8-> I +i];
                     }
-                    chip8->pc+=2;
+                    
                     break;
             break;         
             }
         break;
         
         //Graphical Instructions
-        case 0xD:
+        case 0xD:{
             chip8->V[0xF] = 0;
             uint8_t xCoord = chip8->V[x]%64; //Anything larger should wrap around
             uint8_t yCoord = chip8->V[y]%32;
@@ -353,10 +353,10 @@ int fde_loop(Chip8 *chip8){
                     
                 }
             }
-            chip8 -> pc +=2;
             
             
-        break;
+            
+        }break;
         //Register Instructions
         default:
             fprintf(stderr, "Unknown opcode: 0x%X\n", opcode);
