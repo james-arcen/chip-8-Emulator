@@ -369,3 +369,9 @@ int fde_loop(Chip8 *chip8){
 DOs 
 1. make a thorough documentation throught the entire emulation logic before proceeding to make the sdl
 */
+
+/*
+1. missing font data
+2. 0x9 op code
+3. FX0A blocking logic
+*/
